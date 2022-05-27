@@ -122,11 +122,8 @@ export default class Movies extends Component {
                                 ))
                             }
                         </div>
-                        <div className="infinite-loader"style={{display:'flex',justifyContent:'center'}}>
-                            <h2>Load More Movies .........................</h2>
-                        </div>
-                        {/* <div style={{display:'flex',justifyContent:'center'}}> */}
-                        {/* <nav aria-label="Page navigation example">
+                        <div style={{display:'flex',justifyContent:'center'}}>
+                        <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item"><a class="page-link" onClick={this.handleLeft}>Previous</a></li>
                                 {
@@ -136,8 +133,8 @@ export default class Movies extends Component {
                                 }
                                 <li class="page-item"><a class="page-link" onClick={this.handleRight}>Next</a></li>
                             </ul>
-                        </nav> */}
-                        {/* </div> */}
+                        </nav>
+                        </div>
                     </div>
                 }
             </>
