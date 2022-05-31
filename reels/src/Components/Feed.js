@@ -3,7 +3,6 @@ import { AuthContext } from '../Context/AuthContext'
 import UploadFile from './UploadFile';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
-import { height } from '@mui/system';
 import {database} from "../firebase"
 function Feed() {
 

@@ -7,7 +7,6 @@ import {database, storage} from "../firebase"
 import {v4 as uuidv4} from 'uuid'
 
 
-
 function UploadFile(props) {
     const [error,setError]= useState('');
     const [loading,setLoading]= useState(false);
