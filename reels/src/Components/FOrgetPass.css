@@ -1,0 +1,19 @@
+.cardWrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.forgetCard{
+    width: 30vw;
+    margin-top: 5%;
+}
+
+.instaLogo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+.instaLogo img{
+    width: 12vw;
+}
