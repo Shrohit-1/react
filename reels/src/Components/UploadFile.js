@@ -73,7 +73,7 @@ function UploadFile(props) {
     return (
             <div >
                 {
-                    error!=''? <Alert severity="error">This is an error alert — check it out!</Alert>:
+                    error!=''? <Alert severity="error">{error}</Alert>:
                     <>
                         <input type="file" accept='video/*' id="upload-input" style={{display:"none"}} onChange={(e)=>{handleChange(e.target.files[0])}} ></input>
                         <label htmlFor='upload-input' >
