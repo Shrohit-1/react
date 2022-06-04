@@ -19,9 +19,9 @@ function Feed() {
       
   return (
     <>
-      <h1>Welcome</h1>
+      <h1>Welcome To Feed</h1>
       <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
-        <div className='action-button' style={{display:"flex", justifyContent:"space-around" ,width:"100%", alignItems:"center", marginBottom:"1rem" }} >
+        <div className='action-button' style={{display:"flex", justifyContent:"space-around" ,width:"100%", alignItems:"center", marginBottom:"0.53vh" }} >
           <UploadFile user={userData}></UploadFile>
           <Button variant="contained" onClick={logout} style={{width:"10vw"}}>logout &nbsp;<LogoutIcon></LogoutIcon></Button>
         </div>
