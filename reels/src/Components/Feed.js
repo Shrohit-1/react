@@ -4,6 +4,7 @@ import UploadFile from './UploadFile';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
 import {database} from "../firebase"
+import Posts from './Posts';
 function Feed() {
 
   const {logout,User} = useContext(AuthContext);
@@ -17,13 +18,16 @@ function Feed() {
     },[User])
       
   return (
-    <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between" ,width:"50%", alignItems:"center" ,height:"100%"}}>
-        <h1>Welcome</h1>
-        
-        <UploadFile user={userData}></UploadFile>
-        <Button variant="contained" onClick={logout} style={{margin:"4rem"}} >logout &nbsp;<LogoutIcon></LogoutIcon></Button>
-    </div>
-    
+    <>
+      <h1>Welcome</h1>
+      <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+        <div className='action-button' style={{display:"flex", justifyContent:"space-around" ,width:"100%", alignItems:"center", marginBottom:"1rem" }} >
+          <UploadFile user={userData}></UploadFile>
+          <Button variant="contained" onClick={logout} style={{width:"10vw"}}>logout &nbsp;<LogoutIcon></LogoutIcon></Button>
+        </div>
+          <Posts userData={userData}/>
+      </div>
+    </>
   )
 }
 

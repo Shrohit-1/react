@@ -1,0 +1,13 @@
+.icon-styling{
+    position: absolute;
+    bottom: 4%;
+    left: 4%;
+}
+.like{
+    color: red;
+    cursor: pointer;
+}
+.unlike{
+    color: white;
+    cursor: pointer;
+}
