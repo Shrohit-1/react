@@ -10,7 +10,7 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import './Signup.css'
-import instagram from '../Assets/Instagram.jfif'
+import instagram from '../Assets/Instagram.JPG'
 import { createUseStyles } from 'react-jss';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Link ,useNavigate} from 'react-router-dom';

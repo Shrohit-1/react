@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { AuthContext } from '../Context/AuthContext'
 import UploadFile from './UploadFile';
-import LogoutIcon from '@mui/icons-material/Logout';
+
 import Button from '@mui/material/Button';
 import {database} from "../firebase"
 import Posts from './Posts';
+import Navbar from './Navbar';
 function Feed() {
 
   const {logout,User} = useContext(AuthContext);
@@ -19,11 +20,11 @@ function Feed() {
       
   return (
     <>
-      <h1>Welcome To Feed</h1>
+      <Navbar userData={userData}></Navbar>
       <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
-        <div className='action-button' style={{display:"flex", justifyContent:"space-around" ,width:"100%", alignItems:"center", marginBottom:"0.53vh" }} >
+        <div className='action-button' style={{display:"flex", justifyContent:"space-around" ,width:"100%", alignItems:"center", paddingTop:"1.7vh", paddingBottom:"1.7vh",backgroundColor:"black" }} >
           <UploadFile user={userData}></UploadFile>
-          <Button variant="contained" onClick={logout} style={{width:"10vw"}}>logout &nbsp;<LogoutIcon></LogoutIcon></Button>
+          {/* <Button variant="contained" onClick={logout} style={{width:"10vw"}}>logout &nbsp;<LogoutIcon></LogoutIcon></Button> */}
         </div>
           <Posts userData={userData}/>
       </div>

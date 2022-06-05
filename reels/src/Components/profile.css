@@ -1,0 +1,32 @@
+.upper-part{
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img{
+    flex-basis: 50%;
+}
+
+.info{
+    flex-basis: 40%;
+}
+
+.profile-img img{
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    margin-left: 10%;
+}
+
+.post-video-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post-videos video{
+    height: 40vh;
+    width: 20vw;
+}

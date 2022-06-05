@@ -76,7 +76,7 @@ function UploadFile(props) {
                     <>
                         <input type="file" accept='video/*' id="upload-input" style={{display:"none"}} onChange={(e)=>{handleChange(e.target.files[0])}} ></input>
                         <label htmlFor='upload-input' >
-                            <Button variant="contained" component="span" disabled={loading}>
+                            <Button variant="contained" component="span" disabled={loading} sx={{background:"#ff7979"}}>
                                 <VideocamIcon></VideocamIcon> &nbsp; Upload Video
                             </Button>
                         </label>

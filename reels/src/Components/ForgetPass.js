@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
-import instagram from '../Assets/Instagram.jfif'
+import instagram from '../Assets/Instagram.JPG'
 import { createUseStyles } from 'react-jss';
 import { Link ,useNavigate} from 'react-router-dom';
 import './FOrgetPass.css'
