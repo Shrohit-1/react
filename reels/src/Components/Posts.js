@@ -47,6 +47,30 @@ function Posts({userData}) {
     })
     return unsub;
   },[])
+
+  const callback = (entries) => {
+    entries.forEach((entry)=>{
+        let ele = entry.target.childNodes[0]
+        console.log(ele)
+        ele.play().then(()=>{
+            if(!ele.paused && !entry.isIntersecting){
+                ele.pause()
+            }
+        })
+    })
+  }
+  let observer = new IntersectionObserver(callback, {threshold:0.6});
+  useEffect(()=>{
+      const elements = document.querySelectorAll(".videos")
+      elements.forEach((element)=>{
+          observer.observe(element)
+      })
+      return ()=>{
+          observer.disconnect();
+      }
+  },[posts])
+
+
   return (
       
       posts==null || userData==null ? <CircularProgress />:
@@ -70,12 +94,12 @@ function Posts({userData}) {
                   fullWidth={true}
                   maxWidth="md"
                 >
-                  <div className='modal-container'>
-                    <div className='video-modal'>
+                  <div className='modal-container' style={{overflow:"clip"}}>
+                    <div className='video-modal' >
                       <video src={post.pUrl} autoPlay={true} muted={true} controls className="modal-video"></video>
                     </div>
                     <div className='comment-modal'>
-                      <Card className="card1">
+                      <Card className="card1" sx={{overflow:"scroll"}}>
                         <Comment postData={post}></Comment>
                       </Card>
                       <Card variant='outlined'  className="card2">

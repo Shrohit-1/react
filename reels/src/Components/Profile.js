@@ -12,7 +12,8 @@ import AddComment from './AddComment';
 import "./profile.css"
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
+import ProfileDetail from './ProfileDetail';
+import profileBackground from "../Assets/green-geo-background-banner.jpeg"
 function Profile() {
     const{id}= useParams()
     const [userData,setUserData]= useState(null);
@@ -53,24 +54,15 @@ function Profile() {
             <div>
                 <Navbar></Navbar>
                 
-                <div className="upper-part" style={{background:"#ff7979"}}>
+                <div className="upper-part" style={{backgroundImage: `url(${profileBackground})`}}>
                         <div className="profile-img">
                             <img src={userData.profileUrl}/>
                         </div>
                         <div className="info">
-                        <Typography variant="h5">
-                                Name : {userData.fullName}
-                            </Typography>
-                            <Typography variant="h5">
-                                Email : {userData.email}
-                            </Typography>
-                            <Typography variant="h6">
-                                Posts : {userData?.postIds?.length}
-                            </Typography>
+                            <ProfileDetail userData={userData}></ProfileDetail>
                         </div>
                 </div>
-                <hr style={{marginTop:'0rem',marginBottom:'3rem'}}/>
-                <div className='post-video-container'>
+                <div className='post-video-container' style={{background:"black" , paddingTop:"3rem" , paddingBottom:"1rem"}}>
                     {
                     posts.map((post,index)=>(
                         <React.Fragment key={index}>
