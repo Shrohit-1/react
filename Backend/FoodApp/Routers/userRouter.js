@@ -2,7 +2,7 @@ const express= require('express');
 const path= require('path')
 const userRouter=express.Router();
 const userModel= require("../models/userModel")
-
+const protectRoute=require("./authHelper")
 //Mounting
 userRouter
 .route("/")
@@ -68,17 +68,6 @@ function getUserById(req,res){
     })
 }
 
-//user is logged in or not
-function protectRoute(req,res,next){
-    console.log(req.cookies);
-    if(req.cookies.isLoggedIn=='true'){
-        next();
-    }
-    else{
-        return  res.json({
-            message:"unauthorized access"
-        })
-    }
-}
+
 
 module.exports=userRouter;
