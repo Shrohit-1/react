@@ -1,7 +1,8 @@
 const express= require('express');
 const userModel= require('../models/userModel')
 const authRouter=express.Router();
-
+const JWT= require('jsonwebtoken');
+const {JWT_KEY}=require("../Secret/secret");
 //signup
 authRouter
 .route("/signup")
@@ -41,7 +42,13 @@ async function loginUser(req,res){
             let user=await userModel.findOne({email:data.email});
             if(user){
                 if(user.password==data.password){
-                    res.cookie('isLoggedIn',true,{httpOnly:true});
+
+                    //creating signature using uid and default algo HMAC SHA256
+                    let uid= user['_id'];
+                    let jwt= JWT.sign({payload:uid},JWT_KEY);
+
+                    res.cookie('login',jwt,{httpOnly:true});
+
                     return res.json({
                         message:"User Logged in",
                         userDetails:user
