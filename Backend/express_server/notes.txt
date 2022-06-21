@@ -1,0 +1,61 @@
+userRouter
+.route("/")
+.get( protectRoute,getUsers)
+.post(postUser)
+.patch(updateUser)
+.delete(deleteUser)
+
+userRouter
+.route("/:id")
+.get(getUserById)
+
+module.exports.getUsers=async function getUsers(req,res){
+    console.log("user delivered Successfully");
+    //-> all documents ->
+    let allUsers=await userModel.find();
+    //let user= await userModel.findOne({name:"mario"});
+    res.json({
+        message:"lists of all users",
+        data:allUsers
+    });
+}
+
+module.exports.postUser=function postUser(req,res){
+    users.push(req.body);
+    res.json({
+        message:"Data added successfully",
+        data:req.body
+    })
+}
+//update in nomgo db
+module.exports.updateUser=async function updateUser(req,res){
+    let dataToBeUpdated= req.body;
+    let user= await userModel.findOneAndUpdate({email:"shnhifauihuf@hufha.com"},dataToBeUpdated);
+    res.json({
+        message:"Data updated",
+    })
+}
+//delete in mongo db
+module.exports.deleteUser=async function deleteUSer(req,res){
+    let data= req.body;
+    let user= await userModel.findOneAndDelete(data);
+    res.json({
+        message:"User deleted",
+        user:user
+    })
+}
+
+
+module.exports.getUserById=async function getUserById(req,res){
+    let id=req.params.id;
+    console.log(req.params.id);
+    for(let i=0;i<users.length;i++){
+        if(users[i].id===id){
+            res.json({user:users[i]});
+            return;
+        }
+    }
+    res.json({
+        message:"user not found"
+    })
+}
