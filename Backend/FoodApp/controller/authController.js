@@ -107,6 +107,12 @@ module.exports.protectRoute= async function protectRoute(req,res,next){
             }
         }
         else{
+            //browser
+            const client=req.get('User-Agent');
+            if(client.includes("Mozilla")==true){
+                return res.redirect('/login');
+            }
+            //postman
             return  res.json({
                 message:"Please login"
             })
@@ -117,4 +123,68 @@ module.exports.protectRoute= async function protectRoute(req,res,next){
             message:err.message
         })
     }
+}
+
+//forgetPassword
+module.exports.forgetpassword= async function forgetpassword(req,res){
+    let {emailv}=req.body;
+    try{
+        const user= await  userModel.findOne({email:emailv});
+        if(user){
+            //creating this token and storing it in db so that we will be able to fetch user from DB from resetPassword link when provided password and resetPassword
+            const resetToken= user.createResetToken();
+            //creating link to be send to user through email for reseting password
+            let resetPasswordLink=`${req.protocol}://${req.get('host')}/resetpassword/${resetToken}`;
+            //sendEmail to the user
+            //nodemailer will be user=d for this purpose
+        }
+        else{
+            res.json({
+                message:"Invalid email"
+            })
+        }
+    }
+    catch(err){
+       res.status(500).json({
+        message:err.message
+       }) 
+    }
+}
+//rsetpassword
+module.exports.resetPassword= async function resetPassword(req,res){
+    try{
+        const token= req.params.token;
+        let {password,confirmpassword}= req.body;
+        //token fetched from link is searched in db as in forgetpassword we stored the token in the db
+        const user= await userModel.findOne({resetToken:token});
+        if(user){
+            //this function will update user's password in db
+            user.resetPasswordHandler(password,confirmpassword);
+            await user.save();
+            res.json({
+                message:"user password changed successfully"
+            })
+        }
+        else{
+            res.json({
+                message:"Invalid Token"
+            })
+        }
+    }
+    catch(err){
+        res.json({
+            message:err.message
+        })
+    }
+    
+}
+
+
+//logout
+module.exports.logout= async function logout(req,res){
+    //replace data of login cookie with empty string and after 1 ms this cookie will be destroyed
+    res.cookie('login',' ',{maxAge:1});
+    res.json({
+        message:"Logged Out Successfully"
+    });
 }

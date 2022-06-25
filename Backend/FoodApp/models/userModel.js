@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const emailValidator=require("email-validator");
 const bcrypt = require('bcrypt');
-
+const crypto= require('crypto');
 const {db_link}= require("../Secret/secret");
 
 mongoose.connect(db_link)
@@ -46,7 +46,8 @@ const userSchema=mongoose.Schema({
     profileImage:{
         type:String,
         default:'img/users/default.jpeg'
-    }
+    },
+    resetToken:String
 });
 
 //mongoose hooks
@@ -60,6 +61,22 @@ userSchema.pre('save',function(){
 //     let hashedPass= await bcrypt.hash(this.password,salt);
 //     this.password=hashedPass;
 // })
+
+
+//creating our own methods for our schema
+userSchema.methods.createResetToken=function(){
+    //we need a unique 32 bit token for that purpose we can use npm package crypto
+    const resetToken= crypto.randomBytes(32).toString("hex");
+    this.resetToken=resetToken;
+    return resetToken;
+}
+
+userSchema.methods.resetPasswordHandler=function(password,confirmPassword){
+    this.password=password;
+    this.confirmPassword=confirmPassword;
+    this.resetToken=undefined;
+}
+
 //model
 const userModel = mongoose.model('userModel',userSchema);
 
