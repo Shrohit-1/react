@@ -9,8 +9,9 @@ app.use(cookieParser())
 
 const userRouter= require('./Routers/userRouter')
 const planRouter=require('./Routers/planRouter');
+const reviewRouter = require('./Routers/reviewRouter');
 
 app.use("/user",userRouter);
 app.use("/plans",planRouter);
-
+app.use("/review",reviewRouter)
 app.listen(8080);
