@@ -13,7 +13,6 @@ const reviewSchema= new mongoose.Schema({
     review:{
         type:String,
         required:[true,'review is required'],
-        unique:true,
         maxLength:[50,'plan name should not exceed more than 50 charcter']
     },
     createdAt:{

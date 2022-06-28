@@ -11,16 +11,12 @@ reviewRouter.route('/top3')
 
 
 reviewRouter.use(protectRoute);
-reviewRouter.route('/crud:plan')
-.post(createReview);
+reviewRouter.route('/crud/:plan')
+.post(createReview)
+.patch(updateReview)
+.delete(deleteReview);
 
 reviewRouter.route('/:id')
 .get(getPlanReviews);
-
-reviewRouter.route('crud/:id')
-.patch(updateReview)
-.delete(deleteReview)
-
-
 
 module.exports= reviewRouter

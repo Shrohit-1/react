@@ -47,27 +47,37 @@ module.exports.top3reviews=async function top3reviews(req,res){
 
 module.exports.createReview=async function createReview(req,res){
     try{
-        let planId= req.params.id;
-        let plan= planModel.findById(planId);
+        let planId= req.params.plan;
+        let plan=await planModel.findById(planId);
         let data= req.body;
         let review= await reviewModel.create(data);
-        plan.ratingAverage= plan.ratingAverage.value
-    }
+        plan.noOfReviews= plan.noOfReviews+1;
+        plan.ratingAverage= (plan.ratingAverage*(plan.noOfReviews-1) + data.rating)/plan.noOfReviews;
+        await plan.save();
+        res.json(({
+            message:"review created",
+            data:review
+        }))
+    }   
     catch(err){
         res.json({
             message:err.message
         })
     }
 }
-
+//Gives reviews for a corresponding plan
+//fetch all reviews and select review having same plan._id as our selected plan
 module.exports.getPlanReviews=async function getPlanReviews(req,res){
     try{
-        let id= req.params.id;
-        const review= await reviewModel.findById(id);
-        if(review){
+        let planId= req.params.id;
+        const Allreviews= await reviewModel.find();
+        let reviews= Allreviews.filter((review)=>{
+            return review.plan._id==planId
+        });
+        if(reviews){
             res.json({
                 message:"review Found",
-                data:review
+                data:reviews
             })
         }
         else{
@@ -82,10 +92,28 @@ module.exports.getPlanReviews=async function getPlanReviews(req,res){
         })
     }
 }
-
+//here we will get plan id from the url as we will select our plan first then when we click on the review which we want to update we will recieve its id in the req body
 module.exports.updateReview=async function updateReview(req,res){
     try{
-
+        let planId= req.params.id;
+        let reviewId= req.body.id;
+        let dataToBeupdated= req.body;
+        let keys=[];
+        let review=await reviewModel.findById( reviewId );
+        for(let key in dataToBeupdated){
+            if(key=="id"){
+                continue;
+            }
+            keys.push(key);
+        }
+        for(let i=0;i<keys.length;i++){
+            review[keys[i]]=dataToBeupdated[keys[i]];
+        }
+        await review.save();
+        res.json({
+            message:"review Updated",
+            data:review
+        })
     }
     catch(err){
         res.json({
@@ -96,8 +124,14 @@ module.exports.updateReview=async function updateReview(req,res){
 
 module.exports.deleteReview=async function deleteReview(req,res){
     try{
-        let id= req.params.id;
+        let id= req.body.id;
+        let planId= req.params.plan;
         let review= await reviewModel.findByIdAndDelete(id);
+        let plan = await planModel.findById(planId);
+        plan.noOfReviews= plan.noOfReviews-1;
+        plan.ratingAverage= ( plan.ratingAverage*(plan.noOfReviews+1) - review.rating)/plan.noOfReviews;
+        
+        await plan.save();
         res.json({
             message:"user deleted SuccessFully",
             review:review

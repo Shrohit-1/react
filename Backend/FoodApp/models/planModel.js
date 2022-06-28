@@ -25,13 +25,18 @@ const planSchema= new mongoose.Schema({
         required:[true,'price not entered']
     },
     ratingAverage:{
-        type:Number
+        type:Number,
+        default:0
     },
     discount:{
         type:Number,
         validate:[function(){
             return this.discount<100;
         },'discount should not exceed price']
+    },
+    noOfReviews:{
+        type:Number,
+        default:0
     }
 });
 
