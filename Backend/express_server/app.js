@@ -20,7 +20,6 @@ app.get('/about-us',(req,res)=>{
 //at the end always so it will run after performing all checks on path above us if placed above all our app will always return 404
 app.use((req,res)=>{
     res.status(404).sendFile('./404.html',{root:path.join(__dirname)});
-
 })
 
 app.listen(8080);

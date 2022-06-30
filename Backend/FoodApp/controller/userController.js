@@ -111,4 +111,8 @@ module.exports.deleteUser=async function deleteUSer(req,res){
     }
 }
 
-
+module.exports.updateProfileImage= async function updateProfileImage(req,res){
+    res.json({
+        message:"file uploaded Successfully"
+    })
+}
